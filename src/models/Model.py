@@ -56,6 +56,7 @@ class Model:
         self.features_test = []
         self.labels_test = []
         self.scaler = None
+        self.nb_positive = 0 
 
     def getPathOfFeatures(self):
         return self.pathOfFeatures
@@ -103,6 +104,12 @@ class Model:
 
     def setFeaturesTest(self, new_features_test):
         self.features_test = new_features_test
+
+    def getNbPositive(self):
+        return self.nb_positive
+
+    def setNbPositive(self,new_nb):
+        self.nb_positive = new_nb
 
     def checkPathFeaturesTest(self, path):
         ext = 4
@@ -199,6 +206,7 @@ class Model:
         labels = []
         loop = 0
         features = []
+        nb_positive = 0
 
         for path, subdirs, files in os.walk(self.getPathOfFeatures()):
             for file in sorted(files):
@@ -210,6 +218,8 @@ class Model:
                     feature_tmp = np.load(path_file)
 
                     if dic_Labels.get(current_file.replace("_mel_spectrogram",""))!=None:
+                        if dic_Labels.get(current_file.replace("_mel_spectrogram",""))=="1":
+                            nb_positive += 1 
                         #Part where we stored the spectrogram for the data test
                         if self.checkPathFeaturesTest(file)==True:
                             self.getLabelsTest().append(dic_Labels.get(current_file.replace("_mel_spectrogram","")))
@@ -244,7 +254,11 @@ class Model:
         self.setFeaturesTest(np.array(self.getFeaturesTest()))
         del features
         del labels
+        self.setNbPositive(nb_positive) 
+        if aug == True:
+            positiveAugmentation(nb_positive)
 
+        
     def loadUnderSampling(self, aug = False):
         self.initFeaturesTest()
         filenames = []
@@ -332,6 +346,7 @@ class Model:
         self.setLabels(labels)
 
         self.setFeaturesTest(np.array(self.getFeaturesTest()))
+        self.setNbPositive(positive_number)
         del features
         del negatives_features
         del labels

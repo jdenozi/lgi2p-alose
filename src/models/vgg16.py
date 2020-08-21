@@ -52,7 +52,20 @@ class vgg(Model):
 
     def launch(self):
 
-        class_weights = { 0.0 : 1 , 1.0 : 2 }
+        no_bulls = len(self.getFeatures())-self.getNbPositive()
+        bulls = self.getNbPositive()
+        total = len(self.getFeatures())
+
+
+        weight_no_bulls = (1 / no_bulls) * (total) / 2.0
+
+        weight_bulls = (1 / bulls) * (total) / 2.0
+
+        print(weight_bulls)
+        print(weight_no_bulls)
+
+        class_weights = { 0.0 : weight_no_bulls , 1.0 : weight_bulls }
+
         inputShape = (128,216,1)
         numClasses = 1
 
@@ -101,8 +114,20 @@ class vgg(Model):
         print(results)
 
     def launchLastLayer(self):
-        
-        class_weights = { 0.0 : 1 , 1.0 : 4 }
+        no_bulls = len(self.getFeatures())-self.getNbPositive()
+        bulls = self.getNbPositive()
+        total = len(self.getFeatures())
+
+
+        weight_no_bulls = (1 / no_bulls) * (total) / 2.0
+
+        weight_bulls = (1 / bulls) * (total) / 2.0
+
+        print(weight_bulls)
+        print(weight_no_bulls)
+
+        class_weights = { 0.0 : weight_no_bulls , 1.0 : weight_bulls }
+
         inputShape = (128,216,1)
         numClasses = 1
 
@@ -123,7 +148,6 @@ class vgg(Model):
             x_test[:, i, :] = scalers[i].transform(x_test[:, i, :])
 
 
-        dump(scalers,os.getcwd()+"/tmp/bulls_model/scalers.txt")
 
         x_train = x_train[...,np.newaxis]
         y_train = np.asarray(self.getLabels()).astype(np.float32)
@@ -133,7 +157,7 @@ class vgg(Model):
 
         data_test = zip(np.array(x_test)[...,np.newaxis],y_test)
         
-        vgg_conv=VGG16(weights=None, include_top=False, input_shape=(128, 431, 1))
+        vgg_conv=VGG16(weights=None, include_top=False, input_shape=(128, 216, 1))
 
         #Freeze the layers except the last 4 layers
         for layer in vgg_conv.layers[:-4]:

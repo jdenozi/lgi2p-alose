@@ -54,7 +54,20 @@ class cnn(Model):
          super().__init__()
 
     def launch(self):
-        class_weights = { 0.0 : 1 , 1.0 : 2 }
+        no_bulls = len(self.getFeatures())-self.getNbPositive()
+        bulls = self.getNbPositive()
+        total = len(self.getFeatures())
+
+
+        weight_no_bulls = (1 / no_bulls) * (total) / 2.0
+
+        weight_bulls = (1 / bulls) * (total) / 2.0
+
+        print(weight_bulls)
+        print(weight_no_bulls)
+
+        class_weights = { 0.0 : weight_no_bulls , 1.0 : weight_bulls }
+
         inputShape = (128,216,1)
         numClasses = 1
         

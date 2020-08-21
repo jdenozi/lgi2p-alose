@@ -264,3 +264,31 @@ False negative: 0.9545454545454546
        Bulls       0.93      0.92      0.93       304
     No Bulls       0.04      0.05      0.04        22
 
+**CNN + Changement des poids avec nouvelles méthodes**
+
+Informations sur les données d'entraînements:
+
+True positive0.8659685863874346
+True negative0.2574585635359116
+False positive0.7425414364640884
+False negative0.13403141361256546
+
+
+              precision    recall  f1-score   support
+
+    No Bulls       0.96      0.94      0.95     18100
+       Bulls       0.14      0.19      0.16       955
+
+Informations sur le fichier test 15juin.wav
+
+True positive0.9545454545454546
+True negative0.02631578947368421
+False positive0.9736842105263158
+False negative0.045454545454545456
+
+              precision    recall  f1-score   support
+
+    No Bulls       0.89      0.03      0.05       304
+      iBulls       0.07      0.95      0.12        22
+
+

@@ -18,7 +18,6 @@ from spectrogram import melSpectrogram
 from models import Model
 from models import cnn
 from models import vgg16
-from models import attentionModel
 utils.createFolder()
 
 parser = argparse.ArgumentParser(description='lgi2p-alose')
@@ -105,7 +104,7 @@ if args.vggconvolutionalnetwork:
         vgg.loadUnderSampling(True)
         vgg.launch()
 
-    if args.vggconvolutionalnetwork=="ll":
+    if args.vggconvolutionalnetwork=="llb":
         vgg = vgg16.vgg()
         vgg.load()
         vgg.launchLastLayer()
