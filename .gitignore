@@ -1,0 +1,7 @@
+*.wav
+bulls_audio/
+bulls_spectrogram/
+*.swp
+__pycache__/
+**/tmp
+*.h5
