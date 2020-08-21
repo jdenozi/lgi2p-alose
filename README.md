@@ -21,13 +21,37 @@ s of shad on the water surface.
 These instructions will get you a copy of the project up and running on your local machine for development and testing purpose. 
 
 ### Prerequisites
-- Panda
-- librosa
-- numpy
-- matplotlib 
-- sphinx
-- tensorflow
-
+Jinja2                       2.10.1             
+jsonpickle                   1.4.1              
+jsonschema                   3.2.0              
+Keras                        2.3.1              
+Keras-Applications           1.0.8              
+launchpadlib                 1.10.13            
+librosa                      0.7.2              
+Markdown                     3.2.2              
+matplotlib                   3.2.1              
+mlxtend                      0.17.3             
+numba                        0.48.0             
+numpy                        1.18.4             
+pandas                       1.0.3              
+Pillow                       7.0.0              
+progressbar                  2.5                
+scikit-learn                 0.23.1             
+scipy                        1.4.1              
+seaborn                      0.10.1             
+setuptools                   45.2.0             
+simplejson                   3.16.0             
+SoundFile                    0.10.3.post1       
+tb-nightly                   2.3.0a20200529     
+tensorboard                  2.3.0              
+tensorboard-plugin-wit       1.6.0.post3        
+tensorflow                   2.3.0              
+tensorflow-addons            0.11.1             
+tensorflow-estimator         2.3.0              
+terminado                    0.8.2              
+tf-estimator-nightly         2.3.0.dev2020052901
+tf-nightly-gpu               2.3.0.dev20200529  
+Theano                       1.0.5              
 # Commande de lancement
 
 Preprocessing
