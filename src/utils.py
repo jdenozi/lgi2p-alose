@@ -95,7 +95,7 @@ def createFolder():
 
 
     if not os.path.exists(os.getcwd()+"/tmp/bulls_spectrogram/"):
-        os.makedirs(os.getwcwd()+"/tmp/bulls_spectrogram/")
+        os.makedirs(os.getcwd()+"/tmp/bulls_spectrogram/")
 
     if not os.path.exists(os.getcwd()+"/tmp/bulls_spectrogram/mel_spectrogram/"):
         os.makedirs(os.getcwd()+"/tmp/bulls_spectrogram/mel_spectrogram/")
