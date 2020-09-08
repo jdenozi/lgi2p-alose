@@ -84,7 +84,7 @@ def createFolder():
 
 
     if not os.path.exists(os.getcwd()+"/tmp/bulls_audio/"):
-        os.makedirs(os.getwcd()+"/tmp/bulls_audio/")
+        os.makedirs(os.getcwd()+"/tmp/bulls_audio/")
     if not os.path.exists(os.getcwd()+"/tmp/bulls_audio/audio_annotated/"):
         os.makedirs(os.getcwd()+"/tmp/bulls_audio/audio_annotated/")
     if not os.path.exists(os.getcwd()+"/tmp/bulls_audio/audio_boundaries/"):
