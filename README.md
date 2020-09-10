@@ -1,5 +1,5 @@
 # DOCUMENTATION OUTILS DETECTION ALOSE
-# LGI2P-ALOSE
+# ALOSE
 -----------
 fr
 -----------
@@ -18,7 +18,7 @@ s of shad on the water surface.
 
 ## Getting Started
 --------------------
-These instructions will get you a copy of the project up and running on your local machine for development and testing purpose. 
+These instructions will get you a copy of the project up and running on your local machine for development and testing purpose.
 
 ### Prerequisites
 Jinja2                       2.10.1             
@@ -58,18 +58,18 @@ Preprocessing
 --
 Découpage des audios:
 ```
-python3 lgi2p.py -p "path_of_audio"
+python3 alose.py.py -p "path_of_audio"
 ```
 
 Création des spectrogrammes:
 
 - Permet de créer les spectrogrammes sous formes de png et sous format txt (argument t comme true)
     ```
-    python3 lgi2p.py -s t
+    python3 alose.py.py -s t
     ```
 - Permet de créer les spectrogrammes sous format txt (argument f comme false)
     ```
-    python3 lgi2p.py -s f
+    python3 alose.py.py -s f
     ```
 Modélisation
 --
@@ -79,102 +79,102 @@ Modélisation
 
 - Chargement des données + utilisation d'un modèle CNN (argument b comme basique)
     ```
-    python3 lgi2p -cnn b
+    python3 alose.py -cnn b
     ```
-    
+
 - Chargement des données + under sampling + utilisation d'un modèle CNN
 
     ```
-    python3 lgi2p -cnn us
+    python3 alose.py -cnn us
     ```
-    
+
 - Chargement des données + over sampling + utilisation d'un modèle CNN
     ```
-    python3 lgi2p -cnn os
+    python3 alose.py -cnn os
    ```
-   
+
 - Chargement des données + under sampling +over sampling + utilisation d'un modèle CNN
     ```
-    python3 lgi2p -cnn uos
+    python3 alose.py -cnn uos
    ```
-   
+
 - Chargement des données "on fly" à partir des images de spectrogrammes + modèle CNN (argument of comme on fly)
     ```
-  python3 lgi2p -cnn of 
-  
+  python3 alose.py -cnn of
+
    ```
-   
+
 - Permet de sortir la matrice de confusion et le rapport du modèle
     ```
-  python3 lgi2p -cnn cm
+  python3 alose.py -cnn cm
    ```
-   
+
 - Permet de prédire un audio et vérifier grâce à l'annotation si les prédictions sont bonnes
     ```
-  python3 lgi2p -cnnt "path_of_audio"
-  
+  python3 alose.py -cnnt "path_of_audio"
+
    ```
 ----
 Apprentissage du modèle VGG16:
 
 - Chargement des données + utilisation d'un modèle VGG (argument b comme basique)
     ```
-    python3 lgi2p -vgg b
+    python3 alose.py -vgg b
     ```
-    
+
 - Chargement des données + under sampling + utilisation d'un modèle VGG
 
     ```
-    python3 lgi2p -vgg us
+    python3 alose.py -vgg us
     ```
-    
+
 - Chargement des données + over sampling + utilisation d'un modèle VGG avec la dernière couche en apprentissage
     ```
-    python3 lgi2p -vgg os
+    python3 alose.py -vgg os
    ```
-   
+
 - Chargement des données + under sampling +over sampling + utilisation d'un modèle VGG avec la dernière couche en apprentissage
     ```
-    python3 lgi2p -vgg uos
+    python3 alose.py -vgg uos
    ```
-   
-   
+
+
  - Chargement des données + utilisation d'un modèle VGG (argument ll comme last layer) avec la dernière couche en apprentissage
     ```
-    python3 lgi2p -vgg ll
+    python3 alose.py -vgg ll
     ```
-    
+
 - Chargement des données + under sampling + utilisation d'un modèle VGG avec la dernière couche en apprentissage
 
     ```
-    python3 lgi2p -vgg llus
+    python3 alose.py -vgg llus
     ```
-    
+
 - Chargement des données + over sampling + utilisation d'un modèle VGG avec la dernière couche en apprentissage
     ```
-    python3 lgi2p -vgg llos
+    python3 alose.py -vgg llos
    ```
-   
+
 - Chargement des données + under sampling +over sampling + utilisation d'un modèle VGG avec la dernière couche en apprentissage
     ```
-    python3 lgi2p -vgg lluos
+    python3 alose.py -vgg lluos
    ```
  ---
  **Generation de donnée on fly:**
- 
+
  Dans le dossier :  src/models/dataGen.py
- 
+
 A améliorer, rien d'automatique.
 Les données d'entraînement et de test doivent se trouver dans 2 dossiers différents et doivent comporter un dossier Bulls et un dossiers non Bulls.
 
 A chaque epoch de nouvelle images sont crées à partir du jeu de données.
 
-Le script peut être lancé avec : 
-``` 
+Le script peut être lancé avec :
+```
 python3 dataGen.py
 ```
 
-Exemple d'utilisation : 
+Exemple d'utilisation :
 --
 - Découper les audios
 - Faire les spectrogrammes sans les png
@@ -183,15 +183,15 @@ Exemple d'utilisation :
 - Tester le modèle sur un fichier audio
 
 ```
-python3 lgi2p -p '/media/data_bulls_audio'
-python3 lgi2p -s f
-python3 lgi2p -cnn us
-python3 lgi2p -cnn cm
-python3 lgi2p -cnnt '/media/15juin.wav'
+python3 alose.py -p '/media/data_bulls_audio'
+python3 alose.py -s f
+python3 alose.py -cnn us
+python3 alose.py -cnn cm
+python3 alose.py -cnnt '/media/15juin.wav'
 ```
 
 
-## Resultats : 
+## Resultats :
 
 ** DataGenerator + CNN **
 
@@ -200,7 +200,7 @@ python3 lgi2p -cnnt '/media/15juin.wav'
 
 
 **CNN + Binary Crossentropy**:
-Informations apprentissage: 
+Informations apprentissage:
 
               precision    recall  f1-score   support
 
@@ -245,13 +245,13 @@ False negative1.0
 
 **CNN + under sampling over sampling**
 
-Informations apprentissage: 
+Informations apprentissage:
 
               precision    recall  f1-score   support
 
     No Bulls       0.95      0.97      0.96     18100
        Bulls       0.15      0.10      0.12       955
-       
+
 Informations test 15juin.wav
 
 True positive: 0.045454545454545456
@@ -290,5 +290,3 @@ False negative0.045454545454545456
 
     No Bulls       0.89      0.03      0.05       304
       iBulls       0.07      0.95      0.12        22
-
-
