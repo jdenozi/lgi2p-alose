@@ -73,7 +73,7 @@ if args.convolutionalnetwork:
         cnn.load()
         cnn.testModel("cnn")
 
-    else: 
+    else:
         print("Wrong arg")
 
 if args.testcnn:
@@ -129,14 +129,14 @@ if args.vggconvolutionalnetwork:
         cnn.load()
         cnn.testModel("vgg")
 
-    
 
 
 
 
 
 
-    else : 
+
+    else :
         print("Wrong arg")
 
 if args.spectrogram:
@@ -150,20 +150,20 @@ if args.spectrogram:
             spectrogram.melSpectrogram(False)
         else:
             print("Errorr wrong arg")
-            sys.exit()
+            exit()
     else:
         spectrogram = spectrogram.spectrogram()
         spectrogram.melSpectrogram()
-    
+
 if args.preprocessing:
     utils.deletePreprocessing()
     preprocessing = preprocessing.preprocessing(args.preprocessing.strip('"'))
-    
+
     duration = input("Type the length of cutted audio. Or push enter for default duration (10 s): ")
 
     if len(duration)==0:
         preprocessing.trimmingAudio()
-    else: 
+    else:
         duration = int(duration)
         preprocessing.trimmingAudio(44100,duration)
 
@@ -173,4 +173,3 @@ if args.analysis:
     utils.inspect_data(x)
     #except:
     #print("Path error")
-
