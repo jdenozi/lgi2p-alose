@@ -42,7 +42,7 @@ class audio:
 
     def getDir(self):
         return self.dir
-    
+
     def collectDirNSubdir(self, audio_file_path):
         folders = []
 
@@ -59,7 +59,7 @@ class audio:
         dir = folders[0]
         return dir
 
-   #Compute the step boundaries 
+   #Compute the step boundaries
     def save_boundaries(self,start, stop):
         n = len(start)
         m = 2
@@ -69,7 +69,7 @@ class audio:
             l[i][1] = stop[i]
         return l
 
-    #Create the boundaries of each cutted audio 
+    #Create the boundaries of each cutted audio
     def readAudioFile(self,sr = 44100, duration=10):
         frame_length = duration * sr
         hop_length = duration * sr
@@ -86,13 +86,13 @@ class audio:
 
         return y, sr, start, stop, list_time_boundaries
 
-    
+
     def saveAudioFile(self, directory, list_time_boundaries):
         ''' Save the all time boundaries in a text file'''
 
         np.savetxt(directory,list_time_boundaries,fmt='%10d', delimiter=',')
 
-    
+
     #Create the directory where the audio is stored
     def createAudioDirectory(self,directory_audio_cut):
         samples_folder = os.path.join(directory_audio_cut,os.path.splitext(self.getAudioFileName())[0])
@@ -101,14 +101,14 @@ class audio:
         except :
             pass
         return samples_folder
-    
+
     def cuttingAudio(self,y, sr, samples_folder, start, stop,list_time_boundaries):
         for i in range(len(list_time_boundaries)):
             x = y[int(list_time_boundaries[i][0]) * sr : int(list_time_boundaries[i][1]) * sr]
             filename = os.path.join(samples_folder, os.path.splitext(self.getAudioFileName())[0] + "_" + str(int(start[i])).zfill(4) + '.wav')
             #librosa.output.write_wav(filename, x, sr)
             sf.write(filename, x, sr)
-        
+
     def createAnnotatedFile(self, annotated_file_name, list_time_boundaries, start, stop):
         line_number = len(list_time_boundaries)
         column_number = 2
@@ -117,6 +117,7 @@ class audio:
         for i in range(line_number):
             annotated_files[i][0] = os.path.splitext(self.getAudioFileName())[0] + "_" + str(int(start[i])).zfill(4) + '.wav'
 
+        print("current_audio_file: ", os.path.splitext(self.getAudioFullFilePath())[0])    
         with open('{}.txt'.format(os.path.splitext(self.getAudioFullFilePath())[0])) as current_audio_file:
                 annotated_file = np.loadtxt(current_audio_file)
 
@@ -125,12 +126,3 @@ class audio:
                         if(start[i] <= annotated_file[j][0] <= stop[i]) or (start[i] <= annotated_file[j][1] <= stop[i]):
                             annotated_files[i][1] = "1"
                 np.savetxt(annotated_file_name, annotated_files, fmt='%s')
-                
-
-
-
-        
-            
-
-
-        

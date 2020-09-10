@@ -26,7 +26,6 @@ import tensorflow as tf
 tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
 import tensorflow.keras as keras
 from keras.utils import to_categorical
-import keras
 import json
 import random
 
@@ -56,7 +55,7 @@ class Model:
         self.features_test = []
         self.labels_test = []
         self.scaler = None
-        self.nb_positive = 0 
+        self.nb_positive = 0
 
     def getPathOfFeatures(self):
         return self.pathOfFeatures
@@ -93,7 +92,7 @@ class Model:
             data = json.load(f)
         self.features_test_path = data.get("testFile")
 
-    def getLabelsTest(self): 
+    def getLabelsTest(self):
         return self.labels_test
 
     def setLabelsTest(self,new_labels_test):
@@ -180,7 +179,7 @@ class Model:
 
     def load(self, aug = False):
         '''
-        Read the all spectrogram stored previously and prepare them for the model 
+        Read the all spectrogram stored previously and prepare them for the model
 
         '''
         self.initFeaturesTest()
@@ -219,7 +218,7 @@ class Model:
 
                     if dic_Labels.get(current_file.replace("_mel_spectrogram",""))!=None:
                         if dic_Labels.get(current_file.replace("_mel_spectrogram",""))=="1":
-                            nb_positive += 1 
+                            nb_positive += 1
                         #Part where we stored the spectrogram for the data test
                         if self.checkPathFeaturesTest(file)==True:
                             self.getLabelsTest().append(dic_Labels.get(current_file.replace("_mel_spectrogram","")))
@@ -254,11 +253,11 @@ class Model:
         self.setFeaturesTest(np.array(self.getFeaturesTest()))
         del features
         del labels
-        self.setNbPositive(nb_positive) 
+        self.setNbPositive(nb_positive)
         if aug == True:
             positiveAugmentation(nb_positive)
 
-        
+
     def loadUnderSampling(self, aug = False):
         self.initFeaturesTest()
         filenames = []
@@ -353,5 +352,3 @@ class Model:
 
         if aug == True:
             self.positiveAugmentation(positive_number)
-
-

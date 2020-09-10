@@ -18,7 +18,7 @@ import pandas as pd
 import datetime
 from spectrogram import melSpectrogram as melSpectrogram
 from progressbar import *
-from sklearn.preprocessing import normalize 
+from sklearn.preprocessing import normalize
 import pandas as pd
 import matplotlib.pyplot as plt
 import warnings
@@ -27,10 +27,8 @@ warnings.filterwarnings('ignore')
 warnings.simplefilter("ignore", category=PendingDeprecationWarning)
 import tensorflow as tf
 tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
-import tensorflow.keras as keras
-from keras.utils import to_categorical
-import keras
-from keras import backend as K
+from tensorflow.keras.utils import to_categorical
+from tensorflow.keras import backend as K
 from tensorflow.keras.models import Sequential,Model
 from tensorflow.keras.layers import Dense, Dropout, Flatten,Input
 from tensorflow.keras.layers import Conv1D, Conv2D, MaxPooling2D, MaxPooling1D
@@ -70,7 +68,7 @@ class cnn(Model):
 
         inputShape = (128,216,1)
         numClasses = 1
-        
+
         self.setFeatures(np.array(self.getFeatures()))
         x_train = np.array(self.getFeatures())
         x_test = self.getFeaturesTest()
@@ -82,14 +80,14 @@ class cnn(Model):
         scalers = {}
         for i in range(x_train.shape[1]):
             scalers[i] = StandardScaler()
-            x_train[:, i, :] = scalers[i].fit_transform(x_train[:, i, :]) 
+            x_train[:, i, :] = scalers[i].fit_transform(x_train[:, i, :])
 
         for i in range(x_test.shape[1]):
-            x_test[:, i, :] = scalers[i].transform(x_test[:, i, :]) 
+            x_test[:, i, :] = scalers[i].transform(x_test[:, i, :])
 
-            
+
         dump(scalers,os.getcwd()+"/tmp/bulls_model/scalers.txt")
-        
+
         x_train = x_train[...,np.newaxis]
         y_train = np.asarray(self.getLabels()).astype(np.float32)
 
@@ -97,7 +95,7 @@ class cnn(Model):
         y_test = np.asarray(self.getLabelsTest()).astype(np.float32)
 
         data_test = zip(np.array(x_test)[...,np.newaxis],y_test)
-       
+
         model = Sequential()
         model.add(Conv2D(16, kernel_size=(3, 3),activation='relu',input_shape=inputShape,padding='same'))
         model.add(MaxPooling2D())
@@ -125,7 +123,7 @@ class cnn(Model):
         model.compile(optimizer = adamOpti, loss =loss , metrics = [tf.keras.metrics.BinaryAccuracy(),tf.keras.metrics.Recall()])
 
         history= model.fit(x=x_train, y=y_train, epochs=20, batch_size=3, validation_data = (x_test, y_test), class_weight=class_weights)
-        results = model.evaluate(x_test, y_test, batch_size=5)   
+        results = model.evaluate(x_test, y_test, batch_size=5)
         print(results)
 
         model.save(os.getcwd()+"/tmp/bulls_model/model_CNN.h5")
@@ -148,7 +146,7 @@ class cnn(Model):
         ''' Delete previous cutted audio files'''
         utils.deleteFiles(audio_out)
         utils.deleteFiles(bulls_prediction + "audio_boundaries/")
- 
+
         audio_boundaries = os.path.join(bulls_prediction+"/audio_boundaries/", os.path.splitext(file_name)[0] +ext1)
 
         y, sr, start, stop, tmp_list_time_boundaries = audio_tmp.readAudioFile()
@@ -194,11 +192,11 @@ class cnn(Model):
                 mel_spectrogram = melSpectrogram.melSpectrogram(cutted_audio_tmp, audio_out)
 
                 features = mel_spectrogram.getFeatures()
-                
+
                 model = tf.keras.models.load_model(os.getcwd()+"/tmp/bulls_model/model_CNN.h5")
 
                 model.compile(loss = 'binary_crossentropy', optimizer = 'adam', metrics = ['accuracy'])
-                
+
                 if features.shape != (128,216):
                     tmp = features.transpose().copy()
                     tmp.resize((128,216), refcheck=False)
@@ -207,7 +205,7 @@ class cnn(Model):
                     all_features.append(features)
                 labels.append(dic_Labels.get(file))
         pbar.finish()
-        
+
 
         '''
         Predicting part
@@ -215,7 +213,7 @@ class cnn(Model):
         '''
         x_test = np.array(all_features)
         labels = np.array(labels).astype(np.float)
-        p = model.predict_classes(x_test[...,np.newaxis]) 
+        p = model.predict_classes(x_test[...,np.newaxis])
         p = np.hstack(p).astype(np.float)
 
 
@@ -229,7 +227,7 @@ class cnn(Model):
         cm=confusion_matrix(labels.astype(str),p.astype(str))
 
 
-        
+
         print(cm)
         tn,fp,fn,tp=confusion_matrix(labels.astype(str),p.astype(str),normalize="true").ravel()
 
@@ -239,14 +237,6 @@ class cnn(Model):
         print("True negative"+str(tn))
         print("False positive"+str(fp))
         print("False negative"+str(fn))
-        
+
         target_names=["Bulls","No Bulls"]
         print(classification_report(labels,p, target_names=target_names))
-
-
-
-
-
-
-
-

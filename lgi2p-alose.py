@@ -74,7 +74,7 @@ if args.convolutionalnetwork:
         cnn.testModel("cnn")
 
     else:
-        print("Wrong arg")
+        print("Wrong arg for convolutional network")
 
 if args.testcnn:
     cnn = cnn.cnn()
