@@ -10,6 +10,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import warnings
 import pathlib
+import soundfile as sf
 
 if not sys.warnoptions:
     warnings.simplefilter("ignore")
@@ -105,7 +106,8 @@ class audio:
         for i in range(len(list_time_boundaries)):
             x = y[int(list_time_boundaries[i][0]) * sr : int(list_time_boundaries[i][1]) * sr]
             filename = os.path.join(samples_folder, os.path.splitext(self.getAudioFileName())[0] + "_" + str(int(start[i])).zfill(4) + '.wav')
-            librosa.output.write_wav(filename, x, sr)
+            #librosa.output.write_wav(filename, x, sr)
+            sf.write(filename, x, sr)
         
     def createAnnotatedFile(self, annotated_file_name, list_time_boundaries, start, stop):
         line_number = len(list_time_boundaries)
