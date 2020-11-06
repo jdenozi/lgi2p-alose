@@ -58,18 +58,18 @@ Preprocessing
 --
 Découpage des audios:
 ```
-python3 alose.py.py -p "path_of_audio"
+python3 alose.py -p "path_of_audio"
 ```
 
 Création des spectrogrammes:
 
 - Permet de créer les spectrogrammes sous formes de png et sous format txt (argument t comme true)
     ```
-    python3 alose.py.py -s t
+    python3 alose.py -s t
     ```
 - Permet de créer les spectrogrammes sous format txt (argument f comme false)
     ```
-    python3 alose.py.py -s f
+    python3 alose.py -s f
     ```
 Modélisation
 --
